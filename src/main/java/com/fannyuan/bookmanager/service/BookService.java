@@ -18,6 +18,10 @@ public class BookService {
         return bookDAO.selectAll();
     }
 
+    public int addBook(Book book) {
+        return bookDAO.addBook(book);
+    }
+
     public void deleteBooks(int id) {
         bookDAO.updateBookStatus(id, BookStatus.DELETE.getValue());
     }
