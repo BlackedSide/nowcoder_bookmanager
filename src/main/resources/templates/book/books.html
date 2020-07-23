@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NowCoder BookManager</title>
+</head>
+<body>
+<h1>Welcome to the NowCoder BookManager</h1>
+<br>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>书名</th>
+        <th>作者</th>
+        <th>价格</th>
+        <th>状态</th>
+    </tr>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="'￥'+${book.price}"></td>
+        <td th:switch="${book.status}">
+            <span th:case="0">Normal</span>
+            <span th:case="1">Deleted</span>
+            <span th:case="2">Recommended</span>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
