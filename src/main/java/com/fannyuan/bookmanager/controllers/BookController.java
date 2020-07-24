@@ -1,7 +1,9 @@
 package com.fannyuan.bookmanager.controllers;
 
 import com.fannyuan.bookmanager.model.Book;
+import com.fannyuan.bookmanager.model.User;
 import com.fannyuan.bookmanager.service.BookService;
+import com.fannyuan.bookmanager.service.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +17,17 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private HostHolder hostHolder;
+
     @RequestMapping(path = {"/index"}, method = {RequestMethod.GET})
     public String bookList(Model model) {
+        User host = hostHolder.getUser();
+
+        if (host != null) {
+            model.addAttribute("host", host);
+        }
+
         loadAllBooksView(model);
         return "book/books";
     }

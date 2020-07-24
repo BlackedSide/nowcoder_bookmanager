@@ -9,6 +9,10 @@
 <h1>Welcome to the NowCoder BookManager</h1>
 <br>
 
+<p th:if="!${host}">尚未登录，请登录！ <a th:href="@{/users/login}">登录</a> 还没有账号？请注册： <a th:href="@{/users/register}">注册</a></p>
+<p th:if="${host}">您好！<span th:text="${host.name}"></span> <a th:href="@{/users/logout}">注销</a></p>
+
+<br>
 <form method="post" th:action="@{/books/add}">
     <p>书名： <input type="text" name="name"></p>
     <p>作者： <input type="text" name="author"></p>
@@ -24,7 +28,7 @@
         <th>作者</th>
         <th>价格</th>
         <th>状态</th>
-        <th>操作</th>
+        <th th:if="${host}">操作</th>
     </tr>
     <tr th:each="book : ${books}">
         <td th:text="${book.id}"></td>
@@ -35,7 +39,7 @@
             <span th:case="0">在馆</span>
             <span th:case="1">借出</span>
         </td>
-        <td th:switch="${book.status}">
+        <td th:if="${host}" th:switch="${book.status}">
             <span th:case="0"><a th:href="@{'/books/'+${book.id}+'/delete'}">借阅</a></span>
             <span th:case="1"><a th:href="@{'/books/'+${book.id}+'/recover'}">归还</a></span>
         </td>
