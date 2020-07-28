@@ -4,7 +4,6 @@ import com.fannyuan.bookmanager.model.Book;
 import com.fannyuan.bookmanager.model.User;
 import com.fannyuan.bookmanager.service.BookService;
 import com.fannyuan.bookmanager.service.HostHolder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
+
 @Controller
 public class BookController {
-    @Autowired
+    @Resource
     private BookService bookService;
 
-    @Autowired
+    @Resource
     private HostHolder hostHolder;
 
     @RequestMapping(path = {"/index"}, method = {RequestMethod.GET})

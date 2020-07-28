@@ -4,17 +4,17 @@ import com.fannyuan.bookmanager.model.Ticket;
 import com.fannyuan.bookmanager.service.TicketService;
 import com.fannyuan.bookmanager.utils.CookieUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
-    @Autowired
+    @Resource
     private TicketService ticketService;
 
     @Override

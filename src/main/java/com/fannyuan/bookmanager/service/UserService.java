@@ -2,12 +2,13 @@ package com.fannyuan.bookmanager.service;
 
 import com.fannyuan.bookmanager.dao.UserDAO;
 import com.fannyuan.bookmanager.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 @Service
 public class UserService {
-    @Autowired
+    @Resource
     private UserDAO userDAO;
 
     public int addUser(User user) {

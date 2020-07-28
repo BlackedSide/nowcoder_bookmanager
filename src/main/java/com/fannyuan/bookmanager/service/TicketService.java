@@ -2,12 +2,13 @@ package com.fannyuan.bookmanager.service;
 
 import com.fannyuan.bookmanager.dao.TicketDAO;
 import com.fannyuan.bookmanager.model.Ticket;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 @Service
 public class TicketService {
-    @Autowired
+    @Resource
     private TicketDAO ticketDAO;
 
     public void addTicket(Ticket ticket) {

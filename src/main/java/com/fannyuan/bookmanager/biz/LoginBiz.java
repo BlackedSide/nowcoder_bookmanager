@@ -9,17 +9,17 @@ import com.fannyuan.bookmanager.utils.ConcurrentUtils;
 import com.fannyuan.bookmanager.utils.MD5;
 import com.fannyuan.bookmanager.utils.TicketUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 @Service
 public class LoginBiz {
-    @Autowired
+    @Resource(name = "userService")
     private UserService userService;
 
-    @Autowired
+    @Resource
     private TicketService ticketService;
 
     public String login(String email, String password) throws Exception {

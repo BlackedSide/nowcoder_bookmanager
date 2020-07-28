@@ -7,20 +7,20 @@ import com.fannyuan.bookmanager.service.UserService;
 import com.fannyuan.bookmanager.utils.ConcurrentUtils;
 import com.fannyuan.bookmanager.utils.CookieUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @Component
 public class HostInfoInterceptor implements HandlerInterceptor {
-    @Autowired
+    @Resource
     private UserService userService;
 
-    @Autowired
+    @Resource
     private TicketService ticketService;
 
     @Override

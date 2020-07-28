@@ -4,7 +4,6 @@ import com.fannyuan.bookmanager.biz.LoginBiz;
 import com.fannyuan.bookmanager.model.User;
 import com.fannyuan.bookmanager.service.UserService;
 import com.fannyuan.bookmanager.utils.CookieUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -12,14 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LoginController {
-    @Autowired
+    @Resource
     private LoginBiz loginBiz;
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @RequestMapping(path = {"/users/register"}, method = {RequestMethod.GET})
