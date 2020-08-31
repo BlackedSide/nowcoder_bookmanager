@@ -20,7 +20,8 @@ public class LoginController {
     @PostMapping(path = "/register/do",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpStatus doRegister(
+    @ResponseStatus(HttpStatus.OK)
+    public void doRegister(
             HttpServletResponse response,
             @RequestBody NewUser newUser
     ) {
@@ -32,32 +33,30 @@ public class LoginController {
         try {
             String ticket = loginBiz.register(user);
             CookieUtils.writeCookie("ticket", ticket, response);
-            return HttpStatus.OK;
         } catch (Exception e) {
-            return HttpStatus.BAD_REQUEST;
+            e.printStackTrace();
         }
     }
 
     @PostMapping(path = "/login/do",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public HttpStatus doLogin(
+    @ResponseStatus(HttpStatus.OK)
+    public void doLogin(
             HttpServletResponse response,
             @RequestBody NewUser loginUser
     ) {
         try {
             String ticket = loginBiz.login(loginUser.getEmail(), loginUser.getPassword());
             CookieUtils.writeCookie("ticket", ticket, response);
-            return HttpStatus.OK;
         } catch (Exception e) {
-
-            return HttpStatus.BAD_REQUEST;
+            e.printStackTrace();
         }
     }
 
     @GetMapping(path = "/logout")
-    public HttpStatus logout(@CookieValue("ticket") String ticket) {
+    @ResponseStatus(HttpStatus.OK)
+    public void logout(@CookieValue("ticket") String ticket) {
         loginBiz.logout(ticket);
-        return HttpStatus.OK;
     }
 }
