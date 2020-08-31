@@ -26,7 +26,6 @@ public class MD5 {
             }
             return new String(str);
         } catch (Exception e) {
-            //TODO log
             return null;
         }
     }
