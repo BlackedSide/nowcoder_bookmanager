@@ -1,6 +1,7 @@
 
 package com.fannyuan.bookmanager.configuration;
 
+import com.fannyuan.bookmanager.interceptor.AdminInterceptor;
 import com.fannyuan.bookmanager.interceptor.HostInfoInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -15,12 +16,16 @@ public class BookWebConfiguration implements WebMvcConfigurer {
     @Resource
     private HostInfoInterceptor hostInfoInterceptor;
 
+    @Resource
+    private AdminInterceptor adminInterceptor;
+
     @Bean
     public WebMvcConfigurer webMvcConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
-                registry.addInterceptor(hostInfoInterceptor).addPathPatterns("/books/**");
+                registry.addInterceptor(hostInfoInterceptor).addPathPatterns("/**");
+                registry.addInterceptor(adminInterceptor).addPathPatterns("/books/**");
             }
         };
     }
