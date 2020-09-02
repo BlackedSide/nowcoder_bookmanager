@@ -26,17 +26,4 @@ public class CookieUtils {
         }
         return null;
     }
-
-    public static void removeCookie(String key, HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-
-        for (int i = 0; i < (cookies == null ? 0 : cookies.length); i++) {
-            if (key.equalsIgnoreCase(cookies[i].getName())) {
-                Cookie cookie = new Cookie(key, "");
-                cookie.setPath("/");
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-            }
-        }
-    }
 }

@@ -3,14 +3,11 @@ package com.fannyuan.bookmanager.biz;
 import com.fannyuan.bookmanager.model.Ticket;
 import com.fannyuan.bookmanager.model.User;
 import com.fannyuan.bookmanager.model.exceptions.LoginRegisterException;
-import com.fannyuan.bookmanager.service.HostHolder;
 import com.fannyuan.bookmanager.service.TicketService;
 import com.fannyuan.bookmanager.service.UserService;
-import com.fannyuan.bookmanager.utils.ConcurrentUtils;
 import com.fannyuan.bookmanager.utils.MD5;
 import com.fannyuan.bookmanager.utils.TicketUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.annotations.Result;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +21,6 @@ public class LoginBiz {
 
     @Resource
     private TicketService ticketService;
-
-    @Resource
-    private HostHolder hostHolder;
 
     public String login(String email, String password) throws Exception {
         User user = userService.getUser(email);
@@ -46,7 +40,6 @@ public class LoginBiz {
             ticketService.addTicket(ticket);
             user.setUpdateTime(dateTime.toDate());
             userService.updateUserTime(user);
-            hostHolder.setUser(user);
             return ticket.getTicket();
         }
 
@@ -60,7 +53,6 @@ public class LoginBiz {
         user.setUpdateTime(dateTime.toDate());
         userService.updateUserTime(user);
 
-        hostHolder.setUser(user);
         return ticket.getTicket();
     }
 
@@ -83,7 +75,6 @@ public class LoginBiz {
         Ticket ticket = TicketUtils.next(user.getId());
         ticketService.addTicket(ticket);
 
-        hostHolder.setUser(user);
         return ticket.getTicket();
     }
 }

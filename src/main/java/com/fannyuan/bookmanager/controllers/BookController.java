@@ -1,10 +1,7 @@
 package com.fannyuan.bookmanager.controllers;
 
 import com.fannyuan.bookmanager.model.Book;
-import com.fannyuan.bookmanager.model.User;
-import com.fannyuan.bookmanager.model.enums.BookStatus;
 import com.fannyuan.bookmanager.service.BookService;
-import com.fannyuan.bookmanager.service.HostHolder;
 import org.joda.time.DateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,22 +16,10 @@ public class BookController {
     @Resource
     private BookService bookService;
 
-    @Resource
-    private HostHolder hostHolder;
-
     @GetMapping("/index")
     public ResponseEntity<List<Book>> bookList() {
-        User host = hostHolder.getUser();
-        List<Book> books = null;
-
-        HttpStatus status;
-        if (host != null) {
-            books = bookService.getAllBooks();
-            status = HttpStatus.OK;
-        } else {
-            status = HttpStatus.NOT_FOUND;
-        }
-        return new ResponseEntity<>(books, status);
+        List<Book> books = bookService.getAllBooks();
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
     @PostMapping(path = "/books/add",
