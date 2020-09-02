@@ -22,18 +22,15 @@ public class LoginInterceptor implements HandlerInterceptor {
         String ticket = CookieUtils.getCookie("ticket", request);
 
         if (StringUtils.isEmpty(ticket)) {
-            response.sendRedirect("/users/login");
             return false;
         }
 
         Ticket new_ticket = ticketService.getTicket(ticket);
         if (new_ticket == null) {
-            response.sendRedirect("/users/login");
             return false;
         }
 
         if (new_ticket.getExpiredAt().before(new Date())) {
-            response.sendRedirect("/users/login");
             return false;
         }
 

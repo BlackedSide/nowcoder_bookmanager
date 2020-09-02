@@ -1,6 +1,6 @@
 package com.fannyuan.bookmanager.service;
 
-import com.fannyuan.bookmanager.dao.BookDAO;
+import com.fannyuan.bookmanager.dao.BookDao;
 import com.fannyuan.bookmanager.model.Book;
 import com.fannyuan.bookmanager.model.enums.BookStatus;
 import org.springframework.stereotype.Service;
@@ -12,21 +12,25 @@ import java.util.List;
 public class BookService {
 
     @Resource
-    private BookDAO bookDAO;
+    private BookDao bookDao;
 
     public List<Book> getAllBooks() {
-        return bookDAO.selectAll();
+        return bookDao.selectAll();
+    }
+
+    public Book getBookById(int id) {
+        return bookDao.selectById(id);
     }
 
     public int addBook(Book book) {
-        return bookDAO.addBook(book);
+        return bookDao.addBook(book);
     }
 
     public void deleteBooks(int id) {
-        bookDAO.updateBookStatus(id, BookStatus.DELETE.getValue());
+        bookDao.updateBookStatus(id, BookStatus.DELETED.getValue());
     }
 
     public void recoverBooks(int id) {
-        bookDAO.updateBookStatus(id, BookStatus.NORMAL.getValue());
+        bookDao.updateBookStatus(id, BookStatus.NORMAL.getValue());
     }
 }

@@ -1,10 +1,11 @@
 package com.fannyuan.bookmanager.controllers;
 
-import com.fannyuan.bookmanager.controllers.request.NewBook;
 import com.fannyuan.bookmanager.model.Book;
 import com.fannyuan.bookmanager.model.User;
+import com.fannyuan.bookmanager.model.enums.BookStatus;
 import com.fannyuan.bookmanager.service.BookService;
 import com.fannyuan.bookmanager.service.HostHolder;
+import org.joda.time.DateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,24 +40,42 @@ public class BookController {
     @PostMapping(path = "/books/add",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public int addBook(@RequestBody NewBook newBook) {
+    public ResponseEntity<Book> addBook(@RequestBody Book newBook) {
         Book book = new Book();
         book.setName(newBook.getName());
         book.setAuthor(newBook.getAuthor());
         book.setPrice(newBook.getPrice());
-        return bookService.addBook(book);
+        book.setRemains(newBook.getRemains());
+        DateTime date = new DateTime();
+        book.setCreateTime(date.toDate());
+        book.setUpdateTime(date.toDate());
+        int status = bookService.addBook(book);
+        if (status > 0) {
+            return new ResponseEntity<>(book, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(book, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path = "/books/{bookId:[0-9]+}/delete")
-    @ResponseStatus(HttpStatus.OK)
-    public void deleteBook(@PathVariable("bookId") int bookId) {
-        bookService.deleteBooks(bookId);
+    public ResponseEntity<Book> deleteBook(@PathVariable("bookId") int bookId) {
+        Book book = bookService.getBookById(bookId);
+        if (book != null && book.getStatus() != 1) {
+            bookService.deleteBooks(bookId);
+            return new ResponseEntity<>(book, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(book, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path = "/books/{bookId:[0-9]+}/recover")
-    @ResponseStatus(HttpStatus.OK)
-    public void recoverBook(@PathVariable("bookId") int bookId) {
-        bookService.recoverBooks(bookId);
+    public ResponseEntity<Book> recoverBook(@PathVariable("bookId") int bookId) {
+        Book book = bookService.getBookById(bookId);
+        if (book != null && book.getStatus() != 0) {
+            bookService.recoverBooks(bookId);
+            return new ResponseEntity<>(book, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(book, HttpStatus.BAD_REQUEST);
+        }
     }
 }
