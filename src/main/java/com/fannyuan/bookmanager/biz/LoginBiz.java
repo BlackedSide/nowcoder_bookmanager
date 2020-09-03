@@ -48,7 +48,7 @@ public class LoginBiz {
         }
 
         ticket = TicketUtils.next(user.getId());
-        ticketService.addTicket(ticket);
+        ticketService.updateTicket(ticket);
 
         user.setUpdateTime(dateTime.toDate());
         userService.updateUserTime(user);

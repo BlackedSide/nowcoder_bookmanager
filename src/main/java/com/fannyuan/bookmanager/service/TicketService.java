@@ -30,4 +30,8 @@ public class TicketService {
     public void deleteTicket(String ticket) {
         ticketDao.deleteTicket(ticket);
     }
+
+    public int updateTicket(Ticket ticket) {
+        return ticketDao.updateTicket(ticket);
+    }
 }

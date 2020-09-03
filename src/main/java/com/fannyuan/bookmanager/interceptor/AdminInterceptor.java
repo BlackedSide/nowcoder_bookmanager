@@ -42,7 +42,7 @@ public class AdminInterceptor implements HandlerInterceptor {
             throw new Exception("登录超时！");
         }
 
-        if (adminService.selectAdminByUid(new_ticket.getUserId()).getAuthority() < 1) {
+        if (adminService.selectAdminByUid(new_ticket.getUserId()) == null || adminService.selectAdminByUid(new_ticket.getUserId()).getAuthority() < 1) {
             throw new Exception("没有权限！");
         }
 

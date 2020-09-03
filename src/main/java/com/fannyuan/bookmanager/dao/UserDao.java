@@ -70,7 +70,7 @@ public interface UserDao {
 
     @Update({
             "update user set "
-                    + "(user_password, user_updatetime) values (#{password}, #{updateTime})"
+                    + "user_password = #{password}, user_updatetime = #{updateTime}"
                     + " where user_id = #{id}"
     })
     void updatePassword(User user);

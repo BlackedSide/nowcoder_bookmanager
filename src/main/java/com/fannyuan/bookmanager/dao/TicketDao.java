@@ -50,4 +50,17 @@ public interface TicketDao {
                     + "where ticket_string = #{ticket}"
     })
     void deleteTicket(String ticket);
+
+    @Update({
+            "update ticket set "
+                    + "ticket_string = #{ticket}, "
+                    + "ticket_expiredtime = #{expiredAt} "
+                    + "where user_id = #{userId}"
+    })
+    @Results({
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "ticket", column = "ticket_string"),
+            @Result(property = "expiredAt", column = "ticket_expiredtime")
+    })
+    int updateTicket(Ticket ticket);
 }
