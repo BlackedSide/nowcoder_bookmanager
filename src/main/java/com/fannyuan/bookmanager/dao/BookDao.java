@@ -57,4 +57,10 @@ public interface BookDao {
                     + "book_status = #{status} where book_id = #{id}"
     })
     void updateBookStatus(@Param("id") int id, @Param("status") int status);
+
+    @Update({
+            "update book set "
+                    + "book_remains = #{remains} where book_id = #{id}"
+    })
+    void updateBookRemains(int id, int remains);
 }

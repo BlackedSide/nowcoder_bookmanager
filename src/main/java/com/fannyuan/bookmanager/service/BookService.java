@@ -33,4 +33,17 @@ public class BookService {
     public void recoverBooks(int id) {
         bookDao.updateBookStatus(id, BookStatus.NORMAL.getValue());
     }
+
+    public synchronized boolean updateBookRemains(int id, int remains) {
+        if (bookDao.selectById(id).getRemains() > 0) {
+            bookDao.updateBookRemains(id, remains);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void addBookRemains(int id) {
+        bookDao.updateBookRemains(id, bookDao.selectById(id).getRemains() + 1);
+    }
 }
