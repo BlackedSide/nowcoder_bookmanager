@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fannyuan.bookmanager.dao.BookDao">
+    <resultMap id="bookResultMap" type="Book">
+        <result property="id" column="book_id"/>
+        <result property="name" column="book_name"/>
+        <result property="author" column="book_author"/>
+        <result property="price" column="book_price"/>
+        <result property="status" column="book_status"/>
+        <result property="remains" column="book_remains"/>
+        <result property="stars" column="book_stars"/>
+        <result property="createTime" column="book_createtime"/>
+        <result property="updateTime" column="book_updatetime"/>
+    </resultMap>
+
+    <select id="selectAll" resultType="Book" resultMap="bookResultMap">
+        select book_id,
+               book_name,
+               book_author,
+               book_price,
+               book_status,
+               book_remains,
+               book_stars,
+               book_createtime,
+               book_updatetime
+        from book
+    </select>
+
+    <select id="selectById" parameterType="int" resultType="Book" resultMap="bookResultMap">
+        select book_id,
+               book_name,
+               book_author,
+               book_price,
+               book_status,
+               book_remains,
+               book_stars,
+               book_createtime,
+               book_updatetime
+        from book
+        where book_id = #{id}
+    </select>
+
+    <insert id="addBook" parameterType="Book">
+        insert
+        into book
+        (book_name, book_author, book_price, book_remains, book_createtime, book_updatetime)
+        values (#{name}, #{author}, #{price}, #{remains}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="updateBookStatus">
+        update
+            book
+        set book_status = #{status}
+        where book_id = #{id}
+    </update>
+
+    <update id="updateBookRemains">
+        update
+            book
+        set book_remains = #{remains}
+        where book_id = #{id}
+    </update>
+</mapper>

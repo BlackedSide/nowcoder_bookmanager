@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fannyuan.bookmanager.dao.TicketDao">
+    <resultMap id="ticketResultMap" type="Ticket">
+        <result property="userId" column="user_id"/>
+        <result property="ticket" column="ticket_string"/>
+        <result property="expiredAt" column="ticket_expiredtime"/>
+    </resultMap>
+
+    <insert id="addTicket" parameterType="Ticket">
+        insert into ticket
+            (user_id, ticket_string, ticket_expiredtime)
+        values (#{userId}, #{ticket}, #{expiredAt})
+    </insert>
+
+    <select id="selectByUserId" parameterType="int" resultType="Ticket" resultMap="ticketResultMap">
+        select user_id,
+               ticket_string,
+               ticket_expiredtime
+        from ticket
+        where user_id = #{uid}
+    </select>
+
+    <select id="selectByTicket" parameterType="string" resultType="Ticket" resultMap="ticketResultMap">
+        select user_id,
+               ticket_string,
+               ticket_expiredtime
+        from ticket
+        where ticket_string = #{ticket}
+    </select>
+
+    <delete id="deleteTicketById" parameterType="int">
+        delete
+        from ticket
+        where ticket_id = #{tid}
+    </delete>
+
+    <delete id="deleteTicket" parameterType="string">
+        delete
+        from ticket
+        where ticket_string = #{ticket}
+    </delete>
+
+    <update id="updateTicket" parameterType="Ticket">
+        update
+            ticket
+        set ticket_string      = #{ticket},
+            ticket_expiredtime = #{expiredAt}
+        where user_id = #{userId}
+    </update>
+</mapper>
